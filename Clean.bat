@@ -1,9 +1,13 @@
 @echo off
-rem --------------------------------------------------------------------------
-rem   Copyright (c) 2012, Cesar Romero
-rem   All rights reserved.
-rem   License info: read license.txt
-rem ---------------------------------------------------------------------------
+rem {**************************************************************************}
+rem {                                                                          }
+rem { Delphi Hibernate                                                         }
+rem {                                                                          }
+rem { Copyright (c) 2012                                                       }
+rem {   Cesar Romero <cesarliws@gmail.com>                                     }
+rem {   License info: read license.txt                                         }
+rem {                                                                          }
+rem {**************************************************************************}
 
 
 :config
