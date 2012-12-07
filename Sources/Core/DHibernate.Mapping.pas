@@ -2,11 +2,11 @@ unit DHibernate.Mapping;
 
 {******************************************************************************}
 {                                                                              }
-{ DDC Framework                                                                }
+{ Delphi Hibernate                                                             }
 {                                                                              }
 { Copyright (c) 2012                                                           }
 {   Cesar Romero <cesarliws@gmail.com>                                         }
-{   Diego Garcia <diego.unitone@gmail.com>                                     }
+{   License info: read license.txt                                             }
 {                                                                              }
 {******************************************************************************}
 
