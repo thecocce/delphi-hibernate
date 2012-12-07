@@ -94,17 +94,59 @@ type
   {$ENDREGION}
 
   TFlushMode = (
-    Always, // flushed before every query. This is almost always unnecessary and inefficient.
-    Auto,   // default . sometimes flushed before query execution in order to ensure that queries never return stale state.
-    Commit, // flushed when Transaction.commit() is called.
-    Manual  // only ever flushed when Session.flush() is called. This mode is very efficient for read only transactions.
+    ///	<summary>
+    ///	  flushed before every query.
+    ///	  This is almost always unnecessary and inefficient.
+    ///	</summary>
+    Always,
+
+    ///	<summary>
+    ///	  Default. Sometimes flushed before query execution in order to ensure
+    ///	  that queries never return stale state.
+    ///	</summary>
+    Auto,
+
+    ///	<summary>
+    ///	  Flushed when Transaction.Commit() is called.
+    ///	</summary>
+    Commit,
+
+    ///	<summary>
+    ///	  Only ever flushed when Session.Flush() is called.
+    ///	  This mode is very efficient for read only transactions.
+    ///	</summary>
+    Manual
   );
 
-  TIsolationLevel = (  // ReadUncommited = Concurrency..., ...Serializable = Consistency
-    ReadUncommited,    // Dirty Reads, Non Reaptable Reads, Phantom Reads
-    ReadCommited,      // Non Reaptable Reads, Phantom Reads
-    RepeatableRead,    // Phantom Reads
-    Serializable       // None
+
+  ///	<summary>
+  ///	  <para>
+  ///	    ReadUncommited = Concurrency...,
+  ///	  </para>
+  ///	  <para>
+  ///	    ...Serializable = Consistency
+  ///	  </para>
+  ///	</summary>
+  TIsolationLevel = (
+    ///	<summary>
+    ///	  Dirty Reads, Non Reaptable Reads, Phantom Reads
+    ///	</summary>
+    ReadUncommited,
+
+    ///	<summary>
+    ///	  Non Reaptable Reads, Phantom Reads
+    ///	</summary>
+    ReadCommited,
+
+    ///	<summary>
+    ///	  Phantom Read
+    ///	</summary>
+    RepeatableRead,
+
+    ///	<summary>
+    ///	  None
+    ///	</summary>
+    Serializable
   );
 
 
@@ -161,14 +203,24 @@ type
     function Merge<T: class>(Value: T): T;
 
     procedure Delete(Value: TObject); overload;
-    // Remove this instance from the session cache.
+
+    ///	<summary>
+    ///	  Remove this instance from the session cache.
+    ///	</summary>
     procedure Evict(Value: TObject);
-    // Expression ??
+
     procedure Filter(Value: TObject; const Filter: string);
-    // Refresh from database
+
+    ///	<summary>
+    ///	  Refresh from database.
+    ///	</summary>
     procedure Refresh(Value: TObject);
     procedure Save(Value: TObject);
-    // Update the persistent instance with the identifier of the given transient instance.
+
+    ///	<summary>
+    ///	  Update the persistent instance with the identifier of the given
+    ///	  transient instance.
+    ///	</summary>
     procedure Update(Value: TObject);
   public
     function BeginTransaction: ITransaction; overload;
