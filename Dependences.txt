@@ -1,0 +1,8 @@
+DSharp - delphisorcery
+- http://code.google.com/p/delphisorcery/
+- [svn]http://delphisorcery.googlecode.com/svn/trunk/ 
+
+delphi-code-coverage
+- http://code.google.com/p/delphi-code-coverage/ 
+- http://code.google.com/p/delphi-code-coverage-wizard/
+- [svn]http://delphi-code-coverage.googlecode.com/svn/trunk/

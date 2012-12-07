@@ -1,0 +1,17 @@
+syntax: glob
+*.dll
+*.exe
+*.fdb
+*.map
+*.local
+*.dcu
+*.identcache
+*.res
+*.~*
+*.tvsconfig
+*.orig
+*.dsk
+*.skincfg
+*.cbk
+*.projdata
+*.gex
