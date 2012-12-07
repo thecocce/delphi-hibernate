@@ -342,7 +342,7 @@ begin
 
         TEnumType.String:
           begin
-            if Value = '' then
+            if Trim(Value) = '' then
               raise EEnumeration.Create(SInvalidEnumValue);
           end;
       end;
