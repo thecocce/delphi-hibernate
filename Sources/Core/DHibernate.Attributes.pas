@@ -135,10 +135,11 @@ type
   end;
 
   Enumeration = class(TCustomAttribute)
-  private
+  strict private
     FEnumType: TEnumType;
     FValues: TArray<string>;
-  protected
+  strict protected
+    procedure SetValue(const Value: string; Items: TStrings);
     procedure SetValues(const Values: array of string);
   public
     // TODO: TypeInfo: PTypeInfo;
@@ -313,6 +314,37 @@ begin
   Create(EnumType, Items);
 end;
 
+procedure Enumeration.SetValue(const Value: string; Items: TStrings);
+begin
+  case EnumType of
+    TEnumType.Char:
+      begin
+        if (Length(Value) <> 1) or (Trim(Value) = '') then
+          raise EEnumeration.Create(SInvalidEnumSize);
+      end;
+
+    TEnumType.Ordinal:
+      begin
+        if not TryStrToInt(Value, Ordinal) then
+          raise EEnumeration.Create(SInvalidEnumOrdinal);
+      end;
+
+    TEnumType.String:
+      begin
+        if Trim(Value) = '' then
+          raise EEnumeration.Create(SInvalidEnumValue);
+      end;
+  end;
+
+  if EnumType in [TEnumType.Char, TEnumType.String] then
+  begin
+    if not CharInSet(Value[StringFirstChar], ['a'..'z', 'A'..'Z']) then
+      raise EEnumeration.Create(SInvalidEnumValue);
+  end;
+
+  Items.Add(Value)
+end;
+
 procedure Enumeration.SetValues(const Values: array of string);
 var
   I: Integer;
@@ -325,35 +357,7 @@ begin
     Items.Duplicates := dupError;
     for I := Low(Values) to High(Values) do
     begin
-      Value := Value[I];
-
-      case EnumType of
-        TEnumType.Char:
-          begin
-            if Length(Value) <> 1 then
-              raise EEnumeration.Create(SInvalidEnumSize);
-          end;
-
-        TEnumType.Ordinal:
-          begin
-            if not TryStrToInt(Value, Ordinal) then
-              raise EEnumeration.Create(SInvalidEnumOrdinal);
-          end;
-
-        TEnumType.String:
-          begin
-            if Trim(Value) = '' then
-              raise EEnumeration.Create(SInvalidEnumValue);
-          end;
-      end;
-
-      if EnumType in [TEnumType.Char, TEnumType.String] then
-      begin
-        if not CharInSet(Value[StringFirstChar], ['a'..'z', 'A'..'Z']) then
-          raise EEnumeration.Create(SInvalidEnumValue);
-      end;
-
-      Items.Add(Value)
+      SetValue(Value[I], Items);
     end;
 
     SetLength(FValues, Items.Count);
