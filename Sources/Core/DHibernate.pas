@@ -181,6 +181,18 @@ type
     ['{6AEFD578-ABED-4487-9AD5-93502672D589}']
   end;
 
+  INamingStrategy = interface(IInterface)
+    ['{E26D9B55-929D-4DC9-88CB-F02983E35A2A}']
+    function GetClassNameForCollectionComponent(const CollectionTableName: string): string;
+    function GetClassNameForComponentKey(const EntityName: string): string;
+    function GetEntityNameFromTableName(const TableName: string): string;
+    function GetIdPropertyNameFromColumnName(const ColumnName: string): string;
+    function GetNameForCollection(CollectingClass: TClass; Progressive: Integer): string;
+    function GetNameForComponentKey(const EntityName: string; ComponentClass: TClass): string;
+    function GetNameForManyToOne(const ReferredEntity: string; const ColumnNames: array of string): string;
+    function GetPropertyNameFromColumnName(const ColumnName: string): string;
+  end;
+
   IConfiguration = interface(IInterface)
     ['{71E5A779-6C2C-4BC1-BB6E-F299D66520A5}']
     function GetMetadata: IMetadata;
