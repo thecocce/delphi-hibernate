@@ -216,8 +216,8 @@ const
   StringFirstChar = 1;
 
 resourcestring
-  SInvalidEnumSize = 'Invalid Enumeration Size';
   SInvalidEnumOrdinal = 'Invalid Ordinal Value';
+  SInvalidEnumSize = 'Invalid Enumeration Size';
   SInvalidEnumValue = 'Invalid Enumeration Value';
 
 implementation
@@ -315,6 +315,8 @@ begin
 end;
 
 procedure Enumeration.SetValue(const Value: string; Items: TStrings);
+var
+  Ordinal: Integer;
 begin
   case EnumType of
     TEnumType.Char:
@@ -349,15 +351,13 @@ procedure Enumeration.SetValues(const Values: array of string);
 var
   I: Integer;
   Items: TStringList;
-  Ordinal: Integer;
-  Value: string;
 begin
   Items := TStringList.Create;
   try
     Items.Duplicates := dupError;
     for I := Low(Values) to High(Values) do
     begin
-      SetValue(Value[I], Items);
+      SetValue(Values[I], Items);
     end;
 
     SetLength(FValues, Items.Count);
