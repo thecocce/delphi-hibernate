@@ -12,6 +12,9 @@ unit DHibernate.Configuration;
 
 interface
 
+uses
+  DHibernate.Session;
+
 type
 {$SCOPEDENUMS ON}
   TReleaseMode = (
@@ -19,11 +22,6 @@ type
     OnClose
   );
 {$SCOPEDENUMS OFF}
-
-  // TODO -oCesar: use DHibernate.Session.ISessionFactory
-  ISessionFactory = interface
-    ['{62B831E1-61D7-4633-8FD2-F17CC6963D50}']
-  end;
 
   IConfiguration = interface
     ['{BFA516EB-A183-4BCB-B59B-F425DB896CBD}']
@@ -63,10 +61,18 @@ type
     property TransactionFactoryClass: TClass read GetTransactionFactoryClass write SetTransactionFactoryClass;
   end;
 
-  // TODO -oCesar: finish implementation
   TConfiguration = class(TInterfacedObject, IConfiguration)
   private
     {$REGION 'Access methods'}
+      FCacheProviderClass: TClass;
+      FConnectionString: string;
+      FDialectClass: TClass;
+      FMaxFetchDepth: Integer;
+      FProviderClass: TClass;
+      FReleaseMode: TReleaseMode;
+      FSchema: string;
+      FShowSql: Boolean;
+      FTransactionFactoryClass: TClass;
       function GetCacheProviderClass: TClass;
       function GetConnectionString: string;
       function GetDialectClass: TClass;
@@ -89,7 +95,11 @@ type
   protected
     const
       DefaultFetchDepth = 3;
+
+    procedure ParseConnectionString(const Value: string);
   public
+    constructor Create;
+
     function BuildSessionFactory: ISessionFactory;
     procedure LoadFromFile(const FileName: string);
 
@@ -105,8 +115,6 @@ type
     property TransactionFactoryClass: TClass read GetTransactionFactoryClass write SetTransactionFactoryClass;
   end;
 
-
-
 implementation
 
 { TConfiguration }
@@ -116,99 +124,113 @@ begin
   Result := nil;
 end;
 
+constructor TConfiguration.Create;
+begin
+  inherited Create;
+
+  FMaxFetchDepth := DefaultFetchDepth;
+  FReleaseMode := TReleaseMode.OnClose;
+end;
+
 function TConfiguration.GetCacheProviderClass: TClass;
 begin
-  Result := nil;
+  Result := FCacheProviderClass;
 end;
 
 function TConfiguration.GetConnectionString: string;
 begin
-  Result := '';
+  Result := FConnectionString;
 end;
 
 function TConfiguration.GetDialectClass: TClass;
 begin
-  Result := nil;
+  Result := FDialectClass;
 end;
 
 function TConfiguration.GetMaxFetchDepth: Integer;
 begin
-  Result := DefaultFetchDepth;
+  Result := FMaxFetchDepth;
 end;
 
 function TConfiguration.GetProviderClass: TClass;
 begin
-  Result := nil;
+  Result := FProviderClass;
 end;
 
 function TConfiguration.GetReleaseMode: TReleaseMode;
 begin
-  Result := TReleaseMode.OnClose;
+  Result := FReleaseMode;
 end;
 
 function TConfiguration.GetSchema: string;
 begin
-  Result := '';
+  Result := FSchema;
 end;
 
 function TConfiguration.GetShowSql: Boolean;
 begin
-  Result := False;
+  Result := FShowSql;
 end;
 
 function TConfiguration.GetTransactionFactoryClass: TClass;
 begin
-  Result := nil;
+  Result := FTransactionFactoryClass;
 end;
 
 procedure TConfiguration.LoadFromFile(const FileName: string);
 begin
+  // TODO -o Cesar: implement
+end;
 
+procedure TConfiguration.ParseConnectionString(const Value: string);
+begin
+  // TODO -o Cesar : implement - raise exception if not valid
 end;
 
 procedure TConfiguration.SetCacheProviderClass(const Value: TClass);
 begin
-
+  FCacheProviderClass := Value;
 end;
 
 procedure TConfiguration.SetConnectionString(const Value: string);
 begin
-
+  ParseConnectionString(Value);
+  FConnectionString := Value;
 end;
 
 procedure TConfiguration.SetDialectClass(const Value: TClass);
 begin
-
+  FDialectClass := Value;
 end;
 
 procedure TConfiguration.SetMaxFetchDepth(const Value: Integer);
 begin
-
+  FMaxFetchDepth := Value;
 end;
 
 procedure TConfiguration.SetProviderClass(const Value: TClass);
 begin
-
+  FProviderClass := Value;
 end;
 
 procedure TConfiguration.SetReleaseMode(const Value: TReleaseMode);
 begin
-
+  FReleaseMode := Value;
 end;
 
 procedure TConfiguration.SetSchema(const Value: string);
 begin
-
+  FSchema := Value;
 end;
 
 procedure TConfiguration.SetShowSql(const Value: Boolean);
 begin
-
+  FShowSql := Value;
 end;
 
 procedure TConfiguration.SetTransactionFactoryClass(const Value: TClass);
 begin
-
+  FTransactionFactoryClass := Value;
 end;
 
 end.

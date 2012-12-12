@@ -17,8 +17,9 @@ uses
   System.Classes,
   System.SysUtils,
   DSharp.Core.Nullable,
-  DSharp.Core.Lazy;
-
+  DSharp.Core.Lazy,
+  DHibernate.Session,
+  DHibernate.Transaction;
 
 type
   {$REGION 'Nullable<T>'}
@@ -119,62 +120,14 @@ type
   );
 
 
-  ///	<summary>
-  ///	  <para>
-  ///	    ReadUncommited = Concurrency...,
-  ///	  </para>
-  ///	  <para>
-  ///	    ...Serializable = Consistency
-  ///	  </para>
-  ///	</summary>
-  TIsolationLevel = (
-    ///	<summary>
-    ///	  Dirty Reads, Non Reaptable Reads, Phantom Reads
-    ///	</summary>
-    ReadUncommited,
-
-    ///	<summary>
-    ///	  Non Reaptable Reads, Phantom Reads
-    ///	</summary>
-    ReadCommited,
-
-    ///	<summary>
-    ///	  Phantom Read
-    ///	</summary>
-    RepeatableRead,
-
-    ///	<summary>
-    ///	  None
-    ///	</summary>
-    Serializable
-  );
-
 
   IDatabaseConnection = interface(IInterface)
     ['{17C11C80-4BC0-4FEB-93A4-10B30ABC778D}']
   end;
 
-  ITransaction = interface(IInterface)
-    ['{8C0D6805-68D5-407B-ADB1-277FA38DA21F}']
-    function IsActive: Boolean;
-    procedure BeginTransaction; overload;
-    procedure BeginTransaction(IsolationLevel: TIsolationLevel); overload;
-    procedure Commit;
-    procedure RollBack;
-  end;
 
   ICriteria<T> = interface
     ['{4CAE15E8-4BDD-4FD6-AC7F-E88C8E164635}']
-  end;
-
-  ISession = interface(IInterface)
-    ['{2BDDDB63-1FDF-4CB0-865E-6FEBCE521A5E}']
-    function BeginTransaction: ITransaction;
-  end;
-
-  ISessionFactory = interface(IInterface)
-    ['{9D4AD94F-BB70-445E-89D4-44B6ED52D591}']
-    function CreateSession: ISession;
   end;
 
   IMetadata = interface(IInterface)

@@ -39,6 +39,8 @@ contains
   DHibernate in '..\..\Sources\Core\DHibernate.pas',
   DHibernate.Attributes in '..\..\Sources\Core\DHibernate.Attributes.pas',
   DHibernate.Configuration in '..\..\Sources\Core\DHibernate.Configuration.pas',
-  DHibernate.Mapping in '..\..\Sources\Core\DHibernate.Mapping.pas';
+  DHibernate.Mapping in '..\..\Sources\Core\DHibernate.Mapping.pas',
+  DHibernate.Session in '..\..\Sources\Core\DHibernate.Session.pas',
+  DHibernate.Transaction in '..\..\Sources\Core\DHibernate.Transaction.pas';
 
 end.

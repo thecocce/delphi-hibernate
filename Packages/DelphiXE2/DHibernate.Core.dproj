@@ -81,6 +81,8 @@
 			<DCCReference Include="..\..\Sources\Core\DHibernate.Attributes.pas"/>
 			<DCCReference Include="..\..\Sources\Core\DHibernate.Configuration.pas"/>
 			<DCCReference Include="..\..\Sources\Core\DHibernate.Mapping.pas"/>
+			<DCCReference Include="..\..\Sources\Core\DHibernate.Session.pas"/>
+			<DCCReference Include="..\..\Sources\Core\DHibernate.Transaction.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
